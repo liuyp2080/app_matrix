@@ -8,8 +8,11 @@ def get_access_token():
     api_key='GH9o78q9PoemsgbhgbRxSV8a'
     secret_key='eNVOYQZ0d1bxZz2o9WrzmYgxLXTL4g4B'
     """
+    # api_key='GH9o78q9PoemsgbhgbRxSV8a'
+    # secret_key='eNVOYQZ0d1bxZz2o9WrzmYgxLXTL4g4B'
+    
         
-    url = "https://aip.baidubce.com/oauth/2.0/token?grant_type=client_credentials&client_id=GH9o78q9PoemsgbhgbRxSV8a&client_secret=eNVOYQZ0d1bxZz2o9WrzmYgxLXTL4g4B"
+    url = "https://aip.baidubce.com/oauth/2.0/token?grant_type=client_credentials&client_id={}&client_secret={}".format(api_key,secret_key)
     
     payload = json.dumps("")
     headers = {
@@ -60,6 +63,8 @@ if __name__ == '__main__':
     st.sidebar.subheader('📚机器学习知识类')
     st.sidebar.write('目前并没有大面积收集机器学习的知识，而是收录了一些独特的经验和体会，比如，DCA分析的注意事项等')
     #导航机器人
+    st.write("api_key", st.secrets["API_key"])
+    st.write("secret_key", st.secrets["secret_key"])
     if "messages" not in st.session_state:
         st.session_state["messages"] = [{"role": "assistant", "content": "你好！我收藏我很多的医学APP，你可以问我索要APP的地址进行体验；我还有许多构建APP的体会，你在网络上没有找得到的可以问我哦"}]
 
