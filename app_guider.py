@@ -2,15 +2,7 @@ import streamlit as st
 import requests
 import json
 #百度云OCR API的访问地址
-def get_access_token():
-    """
-    使用 API Key，Secret Key 获取access_token，替换下列示例中的应用API Key、应用Secret Key
-    api_key='GH9o78q9PoemsgbhgbRxSV8a'
-    secret_key='eNVOYQZ0d1bxZz2o9WrzmYgxLXTL4g4B'
-    """
-    # api_key='GH9o78q9PoemsgbhgbRxSV8a'
-    # secret_key='eNVOYQZ0d1bxZz2o9WrzmYgxLXTL4g4B'
-    
+def get_access_token(api_key,secret_key):
         
     url = "https://aip.baidubce.com/oauth/2.0/token?grant_type=client_credentials&client_id={}&client_secret={}".format(api_key,secret_key)
     
@@ -23,11 +15,11 @@ def get_access_token():
     response = requests.request("POST", url, headers=headers, data=payload)
     return response.json().get("access_token")
 
-def main(prompt):
+def main(prompt,api_key,secret_key):
     '''
     url=https://aip.baidubce.com/rpc/2.0/ai_custom/v1/wenxinworkshop/plugin/uxcb3ay3596p4xig/
     '''
-    url = "https://aip.baidubce.com/rpc/2.0/ai_custom/v1/wenxinworkshop/plugin/uxcb3ay3596p4xig/?access_token=" + get_access_token()
+    url = "https://aip.baidubce.com/rpc/2.0/ai_custom/v1/wenxinworkshop/plugin/uxcb3ay3596p4xig/?access_token=" + get_access_token(api_key,secret_key)
     
     payload = json.dumps({
         "query": prompt,
@@ -76,7 +68,7 @@ if __name__ == '__main__':
         st.session_state.messages.append({"role": "user", "content": prompt})
         st.chat_message("user").write(prompt)
         #answer
-        response = main(prompt)
+        response = main(prompt,api_key,secret_key)
         msg = json.loads(response)
         answer = msg["result"]
         st.session_state.messages.append(msg)#后台necessary，role 和content
