@@ -69,19 +69,26 @@ if __name__ == '__main__':
     st.subheader('🤖导航机器人')
     api_key=st.secrets["API_key"]
     secret_key=st.secrets["secret_key"]
+    
     if "messages" not in st.session_state:
         st.session_state["messages"] = [{"role": "assistant", "content": "你好！我收藏我很多的医学APP，你可以问我索要APP的地址进行体验；我还有许多构建APP的体会，你在网络上没有找得到的可以问我哦"}]
-
-    for msg in st.session_state.messages:
-        st.chat_message(msg["role"]).write(msg["content"])
-
+    # for msg in st.session_state["messages"]:
+    #     st.chat_message(msg["role"]).write(msg["content"])  
+    #
     if prompt := st.chat_input():
-        #prompt
         st.session_state.messages.append({"role": "user", "content": prompt})
-        st.chat_message("user").write(prompt)
-        #answer
-        response = main(prompt,api_key,secret_key)
-        msg = json.loads(response)
-        answer = msg["result"]
-        st.session_state.messages.append(msg)#后台necessary，role 和content
-        st.chat_message("assistant").write(answer)#展示
+        
+    # for message in st.session_state.messages: # Display the prior chat messages
+    #     with st.chat_message(message["role"]):
+    #         st.write(message["content"])
+    # If last message is not from assistant, generate a new response
+    if st.session_state.messages[-1]["role"] != "assistant":
+        with st.chat_message("assistant"):
+            with st.spinner("Thinking..."):
+                response = main(prompt,api_key,secret_key)
+                msg = json.loads(response)
+                answer = msg["result"]
+                st.session_state.messages.append(msg)#后台necessary，role 和content
+                st.write(answer)#展示
+
+     
