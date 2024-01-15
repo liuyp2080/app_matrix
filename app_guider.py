@@ -77,10 +77,12 @@ if __name__ == '__main__':
     #
     if prompt := st.chat_input():
         st.session_state.messages.append({"role": "user", "content": prompt})
-        
-    # for message in st.session_state.messages: # Display the prior chat messages
-    #     with st.chat_message(message["role"]):
-    #         st.write(message["content"])
+    # Display the prior chat messages
+    print(st.session_state.messages)    
+    for message in st.session_state.messages: 
+        with st.chat_message(message["role"]):
+            st.write(message["content"])
+    
     # If last message is not from assistant, generate a new response
     if st.session_state.messages[-1]["role"] != "assistant":
         with st.chat_message("assistant"):
@@ -88,7 +90,7 @@ if __name__ == '__main__':
                 response = main(prompt,api_key,secret_key)
                 msg = json.loads(response)
                 answer = msg["result"]
-                st.session_state.messages.append(msg)#后台necessary，role 和content
-                st.write(answer)#展示
+                st.session_state.messages.append({'role':'assistant','content':answer})#后台necessary，role 和content
+                st.write(answer)#展
 
      
