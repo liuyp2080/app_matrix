@@ -41,10 +41,10 @@ if __name__ == '__main__':
     st.sidebar.image('media_code.jpg',width=200)
     
     st.sidebar.header('💡问答提示')
-    st.sidebar.subheader('📫问APP地址')
+    st.sidebar.subheader('📫问地址')
     st.sidebar.write('通过询问地址可以对APP进行访问（APP名+地址），比如，决策去曲线分析APP地址。')
-    st.subdivider()
-    st.sidebar.subheader('📚问APP简介')
+    st.sidebar.divider()
+    st.sidebar.subheader('🩺问疾病')
     st.sidebar.write('直接输入疾病的名称，可以进行较综合的答案。')
     st.sidebar.divider()
     st.sidebar.subheader('📚机器学习知识类')
