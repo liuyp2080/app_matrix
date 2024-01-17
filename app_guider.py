@@ -62,6 +62,7 @@ if __name__ == '__main__':
         col1,col2,col3=st.columns(3)
         with col1:
             st.write("🎓保序回归演示")
+            st.write("⚕️甲状腺癌远处转移诊断")
         with col2:
             st.write("🎓决策曲线分析演示")
         with col3:
