@@ -87,7 +87,7 @@ if __name__ == '__main__':
     if prompt := st.chat_input():
         st.session_state.messages.append({"role": "user", "content": prompt})
     # Display the prior chat messages
-    print(st.session_state.messages)    
+    # print(st.session_state.messages)    
     for message in st.session_state.messages: 
         with st.chat_message(message["role"]):
             st.write(message["content"])
